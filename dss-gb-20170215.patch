@@ -1,0 +1,126 @@
+diff -ur DarwinStreamingSrvr6.0.3-Source.orig/Buildit DarwinStreamingSrvr6.0.3-Source/Buildit
+--- DarwinStreamingSrvr6.0.3-Source.orig/Buildit	2017-02-15 15:45:33.000000000 +0800
++++ DarwinStreamingSrvr6.0.3-Source/Buildit	2017-02-15 15:45:42.000000000 +0800
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+  
+-VERSION=`grep kVersion revision.h | grep -o [:0123456789:].*[:0123456789:]`
++VERSION=`grep kVersion revision.h | grep -o [[:digit:]].*[[:digit:]]`
+ ##Build script for Darwin Streaming Server
+ if [ `uname` = "Darwin" ] ; then
+     PLATFORM=dss
+diff -ur DarwinStreamingSrvr6.0.3-Source.orig/Makefile.POSIX DarwinStreamingSrvr6.0.3-Source/Makefile.POSIX
+--- DarwinStreamingSrvr6.0.3-Source.orig/Makefile.POSIX	2017-02-15 15:45:33.000000000 +0800
++++ DarwinStreamingSrvr6.0.3-Source/Makefile.POSIX	2017-02-15 15:45:42.000000000 +0800
+@@ -6,7 +6,7 @@
+ CC = $(CCOMP)
+ LINK = $(LINKER)
+ CCFLAGS += $(COMPILER_FLAGS)  -DDSS_USE_API_CALLBACKS -g -Wall -Wno-format-y2k $(INCLUDE_FLAG) PlatformHeader.h
+-LIBS = $(CORE_LINK_LIBS) -lCommonUtilitiesLib -lQTFileLib
++LIBS = -lCommonUtilitiesLib -lQTFileLib $(CORE_LINK_LIBS)
+ 
+ # OPTIMIZATION
+ CCFLAGS += -O3
+diff -ur DarwinStreamingSrvr6.0.3-Source.orig/QTFileTools/QTFileInfo.tproj/Makefile.POSIX DarwinStreamingSrvr6.0.3-Source/QTFileTools/QTFileInfo.tproj/Makefile.POSIX
+--- DarwinStreamingSrvr6.0.3-Source.orig/QTFileTools/QTFileInfo.tproj/Makefile.POSIX	2017-02-15 15:45:33.000000000 +0800
++++ DarwinStreamingSrvr6.0.3-Source/QTFileTools/QTFileInfo.tproj/Makefile.POSIX	2017-02-15 15:45:42.000000000 +0800
+@@ -6,7 +6,7 @@
+ CC = $(CCOMP)
+ LINK = $(LINKER)
+ CCFLAGS += $(COMPILER_FLAGS) $(INCLUDE_FLAG) ../../PlatformHeader.h -g -Wall
+-LIBS = $(CORE_LINK_LIBS) -lCommonUtilitiesLib  -lQTFileExternalLib ../../CommonUtilitiesLib/libCommonUtilitiesLib.a
++LIBS = -lCommonUtilitiesLib  -lQTFileExternalLib ../../CommonUtilitiesLib/libCommonUtilitiesLib.a $(CORE_LINK_LIBS)
+ 
+ #OPTIMIZATION
+ CCFLAGS += -O3
+diff -ur DarwinStreamingSrvr6.0.3-Source.orig/QTFileTools/QTFileTest.tproj/Makefile.POSIX DarwinStreamingSrvr6.0.3-Source/QTFileTools/QTFileTest.tproj/Makefile.POSIX
+--- DarwinStreamingSrvr6.0.3-Source.orig/QTFileTools/QTFileTest.tproj/Makefile.POSIX	2017-02-15 15:45:33.000000000 +0800
++++ DarwinStreamingSrvr6.0.3-Source/QTFileTools/QTFileTest.tproj/Makefile.POSIX	2017-02-15 15:45:42.000000000 +0800
+@@ -6,7 +6,7 @@
+ CC = $(CCOMP)
+ LINK = $(LINKER)
+ CCFLAGS += $(COMPILER_FLAGS) $(INCLUDE_FLAG) ../../PlatformHeader.h -g -Wall
+-LIBS = $(CORE_LINK_LIBS) -lCommonUtilitiesLib  -lQTFileExternalLib ../../CommonUtilitiesLib/libCommonUtilitiesLib.a ../../QTFileLib/libQTFileExternalLib.a
++LIBS = -lCommonUtilitiesLib  -lQTFileExternalLib ../../CommonUtilitiesLib/libCommonUtilitiesLib.a ../../QTFileLib/libQTFileExternalLib.a $(CORE_LINK_LIBS)
+ 
+ #OPTIMIZATION
+ CCFLAGS += -O3
+diff -ur DarwinStreamingSrvr6.0.3-Source.orig/QTFileTools/QTSampleLister.tproj/Makefile.POSIX DarwinStreamingSrvr6.0.3-Source/QTFileTools/QTSampleLister.tproj/Makefile.POSIX
+--- DarwinStreamingSrvr6.0.3-Source.orig/QTFileTools/QTSampleLister.tproj/Makefile.POSIX	2017-02-15 15:45:33.000000000 +0800
++++ DarwinStreamingSrvr6.0.3-Source/QTFileTools/QTSampleLister.tproj/Makefile.POSIX	2017-02-15 15:45:42.000000000 +0800
+@@ -6,7 +6,7 @@
+ CC = $(CCOMP)
+ LINK = $(LINKER)
+ CCFLAGS += $(COMPILER_FLAGS) $(INCLUDE_FLAG) ../../PlatformHeader.h -g -Wall
+-LIBS = $(CORE_LINK_LIBS) -lCommonUtilitiesLib  -lQTFileExternalLib ../../CommonUtilitiesLib/libCommonUtilitiesLib.a ../../QTFileLib/libQTFileExternalLib.a
++LIBS = -lCommonUtilitiesLib  -lQTFileExternalLib ../../CommonUtilitiesLib/libCommonUtilitiesLib.a ../../QTFileLib/libQTFileExternalLib.a $(CORE_LINK_LIBS)
+ 
+ #OPTIMIZATION
+ CCFLAGS += -O3
+diff -ur DarwinStreamingSrvr6.0.3-Source.orig/QTFileTools/QTTrackInfo.tproj/Makefile.POSIX DarwinStreamingSrvr6.0.3-Source/QTFileTools/QTTrackInfo.tproj/Makefile.POSIX
+--- DarwinStreamingSrvr6.0.3-Source.orig/QTFileTools/QTTrackInfo.tproj/Makefile.POSIX	2017-02-15 15:45:33.000000000 +0800
++++ DarwinStreamingSrvr6.0.3-Source/QTFileTools/QTTrackInfo.tproj/Makefile.POSIX	2017-02-15 15:45:42.000000000 +0800
+@@ -6,7 +6,7 @@
+ CC = $(CCOMP)
+ LINK = $(LINKER)
+ CCFLAGS += $(COMPILER_FLAGS) $(INCLUDE_FLAG) ../../PlatformHeader.h -g -Wall
+-LIBS = $(CORE_LINK_LIBS) -lCommonUtilitiesLib  -lQTFileExternalLib ../../CommonUtilitiesLib/libCommonUtilitiesLib.a ../../QTFileLib/libQTFileExternalLib.a
++LIBS = -lCommonUtilitiesLib  -lQTFileExternalLib ../../CommonUtilitiesLib/libCommonUtilitiesLib.a ../../QTFileLib/libQTFileExternalLib.a $(CORE_LINK_LIBS)
+ 
+ #OPTIMIZATION
+ CCFLAGS += -O3
+diff -ur DarwinStreamingSrvr6.0.3-Source.orig/WebAdmin/WebAdminHtml/adminprotocol-lib.pl DarwinStreamingSrvr6.0.3-Source/WebAdmin/WebAdminHtml/adminprotocol-lib.pl
+--- DarwinStreamingSrvr6.0.3-Source.orig/WebAdmin/WebAdminHtml/adminprotocol-lib.pl	2017-02-15 15:45:33.000000000 +0800
++++ DarwinStreamingSrvr6.0.3-Source/WebAdmin/WebAdminHtml/adminprotocol-lib.pl	2017-02-15 15:45:42.000000000 +0800
+@@ -38,16 +38,16 @@
+ @weekdayStr = ( "SunStr", "MonStr", "TueStr", "WedStr", "ThuStr", "FriStr", "SatStr" );
+ @monthStr = ( "JanStr", "FebStr", "MarStr", "AprStr", "MayStr", "JunStr", "JulStr", "AugStr", "SepStr", "OctStr", "NovStr", "DecStr" );
+ 
+-$enMessageHash = $ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"};
+-$deMessageHash = $ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"};
+-$jaMessageHash = $ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"};
+-$frMessageHash = $ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"};
++$enMessageHash = $$ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"};
++$deMessageHash = $$ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"};
++$jaMessageHash = $$ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"};
++$frMessageHash = $$ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"};
+ 
+ # GetMessageHash()
+ # Returns the messages hash given the language
+ sub GetMessageHash 
+ {
+-	return $ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"};  
++	return $$ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"};  
+ }
+ 
+ # GetGenreArray()
+diff -ur DarwinStreamingSrvr6.0.3-Source.orig/WebAdmin/WebAdminHtml/tag_formats.pl DarwinStreamingSrvr6.0.3-Source/WebAdmin/WebAdminHtml/tag_formats.pl
+--- DarwinStreamingSrvr6.0.3-Source.orig/WebAdmin/WebAdminHtml/tag_formats.pl	2017-02-15 15:45:33.000000000 +0800
++++ DarwinStreamingSrvr6.0.3-Source/WebAdmin/WebAdminHtml/tag_formats.pl	2017-02-15 15:46:15.000000000 +0800
+@@ -42,7 +42,7 @@
+ # Returns the messages hash given the language
+ sub GetMessageHash 
+ {
+-	return $ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"};  
++	return $$ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"};  
+ }
+ 
+ sub runFormatter {
+diff -ur DarwinStreamingSrvr6.0.3-Source.orig/WebAdmin/src/streamingadminserver.pl DarwinStreamingSrvr6.0.3-Source/WebAdmin/src/streamingadminserver.pl
+--- DarwinStreamingSrvr6.0.3-Source.orig/WebAdmin/src/streamingadminserver.pl	2017-02-15 15:45:33.000000000 +0800
++++ DarwinStreamingSrvr6.0.3-Source/WebAdmin/src/streamingadminserver.pl	2017-02-15 15:45:42.000000000 +0800
+@@ -1417,10 +1417,10 @@
+ 		$ENV{"QTSSADMINSERVER_QTSSADMIN"} = $config{"qtssAdmin"};
+ 		$ENV{"QTSSADMINSERVER_HELPURL"} = $config{"helpurl"};
+ 		$ENV{"QTSSADMINSERVER_TEMPFILELOC"} = $config{"tempfileloc"};
+-		$ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"} = $messages{"en"};
+-		$ENV{"QTSSADMINSERVER_DE_MESSAGEHASH"} = $messages{"de"};
+-		$ENV{"QTSSADMINSERVER_JA_MESSAGEHASH"} = $messages{"ja"};
+-		$ENV{"QTSSADMINSERVER_FR_MESSAGEHASH"} = $messages{"fr"};
++		$$ENV{"QTSSADMINSERVER_EN_MESSAGEHASH"} = $messages{"en"};
++		$$ENV{"QTSSADMINSERVER_DE_MESSAGEHASH"} = $messages{"de"};
++		$$ENV{"QTSSADMINSERVER_JA_MESSAGEHASH"} = $messages{"ja"};
++		$$ENV{"QTSSADMINSERVER_FR_MESSAGEHASH"} = $messages{"fr"};
+ 		$ENV{"GENREFILE"} = 'genres';
+ 		$ENV{"COOKIES"} = $header{'cookie'};
+ 		$ENV{"COOKIE_EXPIRE_SECONDS"} = $config{"cookieExpireSeconds"};
